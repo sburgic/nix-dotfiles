@@ -6,6 +6,8 @@
   ];
 
   home.file.".config/kitty/kitty.conf".text = ''
+    shell ${pkgs.zsh}/bin/zsh
+
     font_family      MesloLGS NF
     font_size        12
 

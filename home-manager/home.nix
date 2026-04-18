@@ -5,6 +5,8 @@
     ./modules/git.nix
     ./modules/zsh.nix
     ./modules/kitty.nix
+    ./modules/tmux.nix
+    ./modules/nvim/default.nix
   ];
 
   home.username = "sburgic";

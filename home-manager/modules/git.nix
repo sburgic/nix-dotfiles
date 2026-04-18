@@ -7,9 +7,11 @@
 
   programs.git = {
     enable = true;
-    userName = "Sani Burgic";
-    userEmail = "sburgic@proton.me";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Sani Burgic";
+        email = "sburgic@proton.me";
+      };
       push = {
         autoSetupRemote = true;
       };
