@@ -20,6 +20,12 @@
       key = "K";
       action = ":m '<-2<CR>gv=gv";
     }
+    # Lazygit
+    {
+      mode = "n";
+      key = "<leader>lg";
+      action = "<cmd>LazyGit<cr>";
+    }
     # Harpoon
     {
       mode = "n";

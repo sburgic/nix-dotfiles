@@ -25,6 +25,9 @@
       };
     };
 
+    # Lazygit
+    lazygit.enable = true;
+
     # Harpoon
     harpoon.enable = true;
     harpoon.enableTelescope = true;
