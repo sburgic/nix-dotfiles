@@ -1,5 +1,29 @@
 { pkgs, lib, ... }:
+let
+  tree-sitter-strictdoc-src = pkgs.fetchFromGitHub {
+    owner = "manueldiagostino";
+    repo = "tree-sitter-strictdoc";
+    rev = "1fadb5ab41602e77c1da0cf78917c58bd9bdd26f";
+    hash = "sha256-AUQZGChYflBrI5S7tLCmyjqqFkn1viCsp7bCHHUd9ic=";
+  };
+
+  tree-sitter-strictdoc = pkgs.tree-sitter.buildGrammar {
+    language = "strictdoc";
+    version = "unstable-2025-09-02";
+    src = tree-sitter-strictdoc-src;
+  };
+
+  nvim-treesitter-strictdoc = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-treesitter-strictdoc";
+    src = pkgs.runCommand "tree-sitter-strictdoc-queries" { } ''
+      mkdir -p $out/queries/strictdoc
+      cp ${tree-sitter-strictdoc-src}/queries/*.scm $out/queries/strictdoc/
+    '';
+  };
+in
 {
+  programs.nixvim.extraPlugins = [ nvim-treesitter-strictdoc ];
+
   programs.nixvim.plugins = {
     # Telescope needs this one
     web-devicons.enable = true;
@@ -38,6 +62,12 @@
     # Markdown preview
     markdown-preview.enable = true;
     markdown-preview.settings.auto_start = 1;
+
+    # StrictDoc tree-sitter grammar
+    treesitter = {
+      enable = true;
+      grammarPackages = pkgs.vimPlugins.nvim-treesitter.passthru.allGrammars ++ [ tree-sitter-strictdoc ];
+    };
 
     # LSP
     lsp-format.enable = true;

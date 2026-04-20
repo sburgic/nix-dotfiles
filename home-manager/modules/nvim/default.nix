@@ -37,6 +37,20 @@
       }
 
       vim.opt.colorcolumn = "80"
+
+      vim.filetype.add({
+        extension = {
+          sdoc = "strictdoc",
+          sgra = "strictdoc",
+        },
+      })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "strictdoc",
+        callback = function(ev)
+          vim.treesitter.start(ev.buf, "strictdoc")
+        end,
+      })
     '';
   };
 }
